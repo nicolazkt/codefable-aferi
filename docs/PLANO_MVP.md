@@ -4,7 +4,7 @@
 Hoje, dados de laboratórios de fabricantes de intertravados podem ficar dispersos entre fichas, planilhas e laudos. O Aferi deve reduzir retrabalho, erros de transcrição e dificuldade para localizar o histórico por produto/lote, sem obrigar a fábrica a reproduzir digitalmente cada etapa da norma.
 
 ## 2. Público e proposta
-Usuários iniciais: responsável pela qualidade, operador de laboratório e gestor. Projeto preparado para ser instalado em empresas diferentes, mas **primeiro MVP = uma empresa por instalação**. Isso evita um SaaS multi-tenant antes de validarmos o uso real.
+Usuários iniciais: responsável pela qualidade, operador de laboratório e gestor. **Decisão confirmada em 06/11/2026: uma empresa por instalação, com aplicação e banco exclusivos.** Código-base e migrações serão reutilizados em cada fábrica; não haverá SaaS multi-tenant no MVP.
 
 ## 3. Jornada principal (PAVER)
 `Cadastrar produto → registrar lote → registrar ensaio → lançar forças em tf → visualizar MPa por CP e fpk → avaliar → gerar laudo → consultar histórico`.
@@ -24,7 +24,7 @@ Uma nova idade de ensaio (por exemplo 24 h, 7 d ou 28 d) pode ser registrada sob
 | RF-08 | MVP | Gerar laudo imprimível/exportável em PDF com identificação do lote, CPs, unidades, resultados, referência normativa, observações e responsável |
 | RF-09 | MVP | Listar/pesquisar por período, produto, lote, idade e situação; mostrar indicadores básicos de ensaios e resistência |
 | RF-10 | MVP | Permitir correção dos lançamentos com justificativa e trilha simples de alterações; não perder o valor original |
-| RF-11 | MVP | Login e permissões básicas (administrador e laboratório); isolamento de dados por instalação |
+| RF-11 | MVP | Login e permissões básicas (administrador e laboratório); cada implantação terá seus próprios usuários e banco, sem chave de tenant |
 | RF-12 | MVP | Exportar dados em formato aberto (CSV/JSON) e manter migrações versionadas do banco |
 | RF-13 | Próximo | Importação CSV, caso a operação piloto realmente precise, sem integração automática PPCP na primeira entrega |
 | RF-14 | Próximo | Reutilizar a jornada no módulo BLOCO e depois PLACA com calculadoras específicas |
@@ -75,4 +75,3 @@ Sem microserviços, configuração universal de formulários, editor de normas, 
 ## 10. Questões abertas mínimas
 - O piloto será conduzido com qual fluxo real de laboratório e quais campos são indispensáveis para a equipe?
 - O acesso inicial será apenas interno ou também de clientes externos para consultar laudos? **Padrão proposto: apenas interno.**
-- Aprovar a instalação separada por empresa no início, em vez de SaaS multiempresa.
