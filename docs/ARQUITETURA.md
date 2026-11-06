@@ -1,6 +1,6 @@
 # Arquitetura proposta — simples e portátil
 
-**Estado:** recomendação de planejamento; tecnologias de apoio exatas serão fixadas no início do Marco A. Evitar dependências desnecessárias.
+**Estado:** arquitetura técnica proposta; **modelo de implantação independente por empresa confirmado pelo usuário em 06/11/2026**. Tecnologias de apoio exatas serão fixadas no Marco A. Evitar dependências desnecessárias.
 
 ## Stack
 - **Next.js (App Router) + React + TypeScript**, aplicação web full-stack única; APIs/ações de servidor dentro do próprio projeto. **Node.js** como alvo primário de execução.
@@ -15,7 +15,15 @@
 
 As calculadoras normativas são funções puras em TypeScript, não consultas SQL nem regras espalhadas nas telas.
 
-**Uma instalação por empresa no MVP.** Uma tabela de configuração de organização é suficiente. Não introduzir `tenant_id` obrigatório em dezenas de consultas até haver uma necessidade comprovada de SaaS compartilhado. O backup/exportação em formato aberto e migrações ajudam na implantação em outra fábrica.
+**Decisão confirmada: uma instalação por empresa.** Cada implantação terá aplicação, variáveis de ambiente, usuários, banco e backup próprios. Uma tabela de configuração da empresa é suficiente; não introduzir `tenant_id` em dezenas de consultas nem seletor de empresas. Reutilizar o **mesmo código e migrações** em todas as instalações. Migração entre provedores se dará por backup/restore do PostgreSQL e reconfiguração da conexão, não por migração entre tenants.
+
+Modelo de implantação (exemplo, sem dados reais):
+```text
+Empresa A → Aferi (instância A) → PostgreSQL A
+Empresa B → Aferi (instância B) → PostgreSQL B
+```
+
+A infraestrutura de cada empresa pode variar, mas a separação lógica e operacional dos dados deve permanecer. Exportação em formatos abertos e estratégia de backup fazem parte da portabilidade.
 
 Deploy inicial: execução local/Node. Avaliar demonstração na Cloudflare Workers somente quando o fluxo estiver funcional. O adaptador Cloudflare é uma decisão de **infraestrutura**, não deve governar a modelagem ou a matemática. Documentação oficial consultada em 06/11/2026 recomenda `vinext` para novos projetos Next em Workers; essa recomendação pode mudar:
 - https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/
@@ -71,7 +79,8 @@ Para afirmação de conformidade, checar amostragem, idade, procedimento e requi
 - Sessões e autenticação por biblioteca mantida; não implementar criptografia ou login próprio.
 - Segredos via variáveis de ambiente; dados de empresas reais não entram no GitHub público.
 - Correções dos resultados registradas, com motivo, antes de gerar nova versão de laudo.
-- Backup periódico e retenção são decisões de implantação; exportação deve existir no MVP.
+- Backups e restauração são independentes para cada implantação, com rotina e retenção definidos na implantação; exportação deve existir no MVP.
+- Não misturar credenciais, logs, arquivos ou armazenamento entre instalações; a equipe de suporte deve acessar somente a instância autorizada.
 - Conclusão técnica deve ser rastreável até amostra, produto, regra e data.
 
 ## Separação de responsabilidades
