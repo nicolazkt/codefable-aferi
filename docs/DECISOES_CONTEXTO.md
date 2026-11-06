@@ -1,0 +1,38 @@
+# Decisões, contexto e pendências
+
+## Contexto estável (06/11/2026)
+- Produto: CodeFable Aferi, sistema para laboratórios e qualidade de fabricantes de artefatos de concreto.
+- Problema a evitar: versão anterior rígida, enorme, com excesso de regras obrigatórias e bugs.
+- Expectativa: normas como referência técnica principal, mas operação flexível, rápida e adaptável.
+- Sequência solicitada: **Paver → Bloco → Placa**, sempre entregando um fluxo utilizável antes de ampliar escopo.
+- Forma de trabalho: híbrida — planejamento/alterações pequenas via ChatGPT+GitHub; implementação com agente no VS Code quando houver edição/teste local extensivo.
+- GitHub é a base de contexto compartilhada; não depender de memória de chat.
+- Banco e hospedagem ainda não foram formalmente decididos. Cloudflare citada como possibilidade para teste online, não exigência de produção.
+- Os PDFs das normas estão anexados ao contexto de trabalho; não colocá-los num GitHub público sem licença de redistribuição.
+- Nenhum dado operacional real, imagem de cliente, conta, token ou conexão privada deve ser colocado no repositório público.
+
+## Registro de decisões
+
+| ID | Data | Estado | Decisão | Razão |
+|---|---|---|---|---|
+| D-001 | 2026-11-06 | Confirmada pelo briefing | Ordem Paver → Bloco → Placa | MVP rápido, modular |
+| D-002 | 2026-11-06 | Confirmada pelo briefing | Regras normativas sem formulário universal rígido | Aderir à fábrica e preservar rastreabilidade |
+| D-003 | 2026-11-06 | Confirmada pelo briefing | GitHub como memória de projeto e trabalho híbrido com VS Code | Reduz perda de contexto |
+| D-004 | 2026-11-06 | Proposta | Aplicação Next.js/React/TypeScript monolítica em Node.js | Menos infra e menor manutenção |
+| D-005 | 2026-11-06 | Proposta | PostgreSQL + migrações Drizzle; Neon opcional para testes | Portabilidade entre provedores PostgreSQL |
+| D-006 | 2026-11-06 | Proposta | Uma empresa por instalação inicial, sem SaaS multi-tenant | Menos permissões, menos risco de isolamento |
+| D-007 | 2026-11-06 | Proposta | Diferenciar controle interno de avaliação normativa | Impedir laudo que declare conformidade sem evidência |
+| D-008 | 2026-11-06 | Proposta | Cloudflare somente após MVP local validado | Evitar acoplar domínio a plataforma de deploy |
+| D-009 | 2026-11-06 | Proposta | Entrada de força em tf, cálculo interno em N | Aderência ao fluxo real do laboratório |
+
+## Pendências que realmente mudam o produto
+1. Confirmar a estratégia inicial de instalação: **uma fábrica por implantação** (proposta) versus múltiplas fábricas na mesma instância (SaaS).
+2. Confirmar se o primeiro piloto terá **somente usuários internos** (proposta) ou acesso externo de clientes aos laudos.
+3. Na implementação do Paver, validar uma ficha e um laudo reais (com dados anonimizados) para confirmar os campos mínimos e o leiaute.
+4. Verificar a referência cruzada 9781-1:2026 → 9781-2:2025 mencionada no texto do documento, antes de afirmar cobertura normativa integral.
+
+## Próxima tarefa executável
+**Marco A:** inicializar aplicação Next.js/TypeScript; definir schema mínimo e seed fictício; montar cadastro de produto/lote. Somente depois começar o ensaio de paver. Nada foi implementado ainda.
+
+## Como atualizar este arquivo
+Ao encerrar uma tarefa, registrar o que foi feito, o que ficou pendente e qualquer decisão relevante. Sempre separar **confirmado pelo usuário**, **proposto** e **implementado/testado**. Não registrar hipóteses como resultados comprovados.
